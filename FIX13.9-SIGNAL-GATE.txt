@@ -1,0 +1,10 @@
+BOT V1 MR · FIX13.9-SIGNAL-GATE
+
+Cambios:
+- EJECUTAR AHORA se habilita únicamente con una nueva señal válida PREPARAR.
+- Cada operacionId puede ejecutarse una sola vez.
+- Al pulsar, el botón se consume y permanece bloqueado hasta una nueva predicción válida.
+- La ejecución manual usa explícitamente el operacionId mostrado, evitando tomar una señal distinta.
+- Se conserva sincronización 1:1 de mercado, estrategia, dirección y confianza.
+- Se agrega panel DEMO / REAL seguro. REAL queda visible pero bloqueada durante calibración.
+- No se habilita BUY real ni depósitos/retiros.
