@@ -1077,6 +1077,42 @@
 
 
     <!-- =====================================
+         ANÁLISIS SCORE VS RESULTADO REAL
+         ===================================== -->
+
+    <section class="tarjeta">
+
+      <h2>
+        ¿El score predice el resultado?
+      </h2>
+
+      <p class="ayuda">
+        Agrupa tu historial real por rango de confianza y calcula
+        el % de aciertos de cada rango. Si los rangos altos ganan
+        más que los bajos, el score tiene valor real.
+      </p>
+
+      <label>
+        Estrategia
+        <select id="scoreAnalisisEstrategia">
+          <option value="">Todas</option>
+          <option value="rise_fall">Rise / Fall</option>
+          <option value="even_odd">Even / Odd</option>
+          <option value="over_under">Over / Under</option>
+          <option value="match">Matches</option>
+        </select>
+      </label>
+
+      <button id="scoreAnalisisBoton" class="boton probar">
+        Analizar historial
+      </button>
+
+      <div id="scoreAnalisisResultado" class="tabla-scroll"></div>
+
+    </section>
+
+
+    <!-- =====================================
          TABLA 12 MERCADOS
          ===================================== -->
 
@@ -1419,7 +1455,7 @@
 
   <script
     type="module"
-    src="./bot.js?v=FIX14-0-DIRECTION-MEMORY"
+    src="./bot.js?v=FIX14-2-RISK-GUARD"
   ></script>
 
 </body>
