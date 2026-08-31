@@ -1,0 +1,1051 @@
+/* ==========================================
+   BOT V1 MR
+   BOT.CSS
+   FIX13.7 ESTABLE + RÁPIDA
+
+   BASE: FIX13.6
+
+   CONSERVA:
+   - DISEÑO MÓVIL
+   - TARJETAS
+   - TABLAS
+   - COMPARADORES
+   - RESULTADO FINAL
+   - REGISTRO
+   - 12 MERCADOS
+   - CALIBRACIÓN
+   - AUTOMÁTICO / MANUAL
+
+   FIX13.7:
+   - SIN ANIMACIÓN INFINITA
+   - MENOS SOMBRAS PESADAS
+   - MENOS REPINTADOS
+   - SCROLL MÁS ESTABLE
+   - BOTÓN MANUAL VISIBLE Y RÁPIDO
+   ========================================== */
+
+
+/* ==========================================
+   GENERAL
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  background: #07111f;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #07111f;
+  color: #eaf2ff;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+button,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+.app {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+
+/* ==========================================
+   ENCABEZADO
+   ========================================== */
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #7f9bb7;
+}
+
+.hero h1 {
+  margin: 5px 0;
+  font-size: 30px;
+}
+
+.hero h1 span {
+  color: #43d9a3;
+}
+
+.subtitulo {
+  margin: 0;
+  color: #a9bfd4;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+
+/* ==========================================
+   ESTADO BOT
+   ========================================== */
+
+.estado-bot {
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.estado-bot.apagado {
+  background: #3a2028;
+  color: #ff9fb4;
+}
+
+.estado-bot.encendido {
+  background: #123d32;
+  color: #79f3c2;
+}
+
+
+/* ==========================================
+   TARJETAS
+   ========================================== */
+
+.tarjeta {
+  position: relative;
+  background: #0d1b2a;
+  border: 1px solid #1f3348;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 18px;
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+
+/* ==========================================
+   TEXTOS
+   ========================================== */
+
+.descripcion {
+  margin-top: 0;
+  color: #9fb4c8;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.aviso {
+  color: #ffd37a;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.separacion {
+  margin-top: 14px;
+}
+
+
+/* ==========================================
+   DATOS
+   ========================================== */
+
+.datos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dato {
+  background: #0a1623;
+  border: 1px solid #16283a;
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 0;
+}
+
+.dato small {
+  display: block;
+  color: #7f9bb7;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+
+.dato strong {
+  display: block;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   CAMPOS
+   ========================================== */
+
+.campo {
+  margin-top: 14px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 7px;
+  color: #9fb4c8;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.campo input,
+.campo select,
+.dato input,
+.dato select {
+  width: 100%;
+  border: 1px solid #29435d;
+  border-radius: 10px;
+  padding: 12px;
+  background: #07111f;
+  color: #eaf2ff;
+  font-size: 14px;
+  outline: none;
+}
+
+.campo input::placeholder,
+.dato input::placeholder {
+  color: #60778d;
+}
+
+.campo input:focus,
+.campo select:focus,
+.dato input:focus,
+.dato select:focus {
+  border-color: #43d9a3;
+}
+
+.campo input:disabled,
+.dato input:disabled {
+  opacity: 0.65;
+}
+
+
+/* ==========================================
+   SELECTORES
+   ========================================== */
+
+.selector,
+.selector-modo {
+  width: 100%;
+  border: 1px solid #29435d;
+  border-radius: 10px;
+  padding: 12px;
+  background: #07111f;
+  color: #eaf2ff;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+.selector:focus,
+.selector-modo:focus {
+  border-color: #43d9a3;
+}
+
+.selector option,
+.selector optgroup,
+.selector-modo option,
+.selector-modo optgroup {
+  background: #0a1623;
+  color: #eaf2ff;
+}
+
+
+/* ==========================================
+   BOTONES
+   ========================================== */
+
+.botones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.boton {
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: none;
+}
+
+.boton:active {
+  opacity: 0.88;
+}
+
+.boton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.conectar {
+  background: #2a74ff;
+  color: #ffffff;
+}
+
+.pausar {
+  background: #1b2b3e;
+  color: #dce8f5;
+}
+
+.probar {
+  width: 100%;
+  background: #43d9a3;
+  color: #06130f;
+}
+
+.ejecutar {
+  background: #43d9a3;
+  color: #06130f;
+}
+
+.detener {
+  background: #8f354b;
+  color: #ffffff;
+}
+
+.activar-demo {
+  background: #43d9a3;
+  color: #06130f;
+}
+
+
+/* ==========================================
+   EJECUCIÓN DEMO
+   ========================================== */
+
+.estado-ejecucion {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #07111f;
+  border: 1px solid #1f3348;
+  font-weight: bold;
+  text-align: center;
+}
+
+.encendido-ejecucion {
+  color: #79f3c2 !important;
+  border-color: #2a725a;
+}
+
+.apagado-ejecucion {
+  color: #ff9fb4 !important;
+  border-color: #713346;
+}
+
+
+/* ==========================================
+   MODO DE EJECUCIÓN
+   ========================================== */
+
+.tarjeta-modo {
+  border-color: #31587b;
+}
+
+#modoEjecucionEstado {
+  color: #79d8ff;
+}
+
+#modoEjecucionSelect {
+  font-weight: bold;
+}
+
+
+/* ==========================================
+   PANEL MANUAL
+   ========================================== */
+
+.manual-panel {
+  border: 2px solid #d9932d;
+  background: #141b26;
+}
+
+.manual-panel[hidden] {
+  display: none !important;
+}
+
+.manual-panel h2 {
+  color: #ffd37a;
+}
+
+.estado-manual {
+  width: 100%;
+  margin: 12px 0 14px;
+  padding: 14px;
+  border: 1px solid #8b6529;
+  border-radius: 12px;
+  background: #241c0d;
+  color: #ffd37a;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+#manualOperacion {
+  color: #bcd0e4;
+}
+
+#manualMercado {
+  color: #79d8ff;
+}
+
+#manualDireccion {
+  color: #ffd37a;
+  font-size: 18px;
+}
+
+#manualTarget {
+  color: #79d8ff;
+}
+
+#manualProgramado {
+  color: #79d8ff;
+}
+
+#manualClickOffset {
+  color: #ffd37a;
+}
+
+#manualBuyOffset {
+  color: #79f3c2;
+}
+
+
+/* ==========================================
+   BOTÓN EJECUTAR AHORA
+   FIX13.7 SIN ANIMACIÓN
+   ========================================== */
+
+.ejecutar-manual {
+  display: block;
+  width: 100%;
+  min-height: 72px;
+  margin-top: 18px;
+  padding: 18px 14px;
+  border: 2px solid #7cf2c4;
+  border-radius: 16px;
+  background: #43d9a3;
+  color: #04140e;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  box-shadow: none;
+  animation: none !important;
+  transition: none;
+}
+
+.ejecutar-manual:not(:disabled) {
+  background: #43d9a3;
+  color: #04140e;
+  border-color: #7cf2c4;
+  animation: none !important;
+}
+
+.ejecutar-manual:active {
+  opacity: 0.85;
+}
+
+.ejecutar-manual:disabled {
+  border-color: #39495a;
+  background: #1b2b3e;
+  color: #71869a;
+  box-shadow: none;
+  animation: none !important;
+}
+
+.nota-manual {
+  margin: 12px 4px 0;
+  color: #9fb4c8;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+/* ==========================================
+   CALIBRACIÓN
+   ========================================== */
+
+#calibracionMercadoActual {
+  color: #79d8ff;
+}
+
+#calibracionAjusteActual {
+  color: #ffd37a;
+}
+
+#calibracionTargetDisponible {
+  color: #79d8ff;
+}
+
+#calibracionProgramacion {
+  color: #ffd37a;
+}
+
+
+/* ==========================================
+   TELEMETRÍA
+   ========================================== */
+
+#calibradorFamilia,
+#calibradorMercado,
+#calibradorPunto,
+#calibradorReferencia,
+#calibradorAjuste,
+#calibradorEspera,
+#calibradorSignalBuy,
+#calibradorPropuesta,
+#calibradorBuy,
+#calibradorResultado {
+  color: #79d8ff;
+}
+
+
+/* ==========================================
+   TARJETAS DE CONTENIDO
+   ========================================== */
+
+.ultima-senal,
+.operacion-demo {
+  min-height: 90px;
+  background: #07111f;
+  border: 1px solid #16283a;
+  border-radius: 12px;
+  padding: 14px;
+  color: #bcd0e4;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   RESULTADO FINAL
+   ========================================== */
+
+#resultadoDemo {
+  border-width: 2px;
+}
+
+#resultadoDemo.ganada {
+  border-color: #43d9a3;
+  background: #0a211b;
+}
+
+#resultadoDemo.perdida {
+  border-color: #ff6f91;
+  background: #261119;
+}
+
+.resultado-ganado {
+  color: #79f3c2;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.resultado-perdido {
+  color: #ff9fb4;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+
+/* ==========================================
+   COMPARADOR
+   ========================================== */
+
+.comparador-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.comparador-columna {
+  border-radius: 14px;
+  padding: 12px;
+  border: 1px solid #29435d;
+}
+
+.comparador-columna .dato {
+  margin-bottom: 8px;
+}
+
+.comparador-columna .dato:last-child {
+  margin-bottom: 0;
+}
+
+.comparador-columna.ganadoras {
+  background: #0a211b;
+  border-color: #2a725a;
+}
+
+.comparador-columna.perdedoras {
+  background: #261119;
+  border-color: #713346;
+}
+
+.comparador-columna.ganadoras h3 {
+  color: #79f3c2;
+}
+
+.comparador-columna.perdedoras h3 {
+  color: #ff9fb4;
+}
+
+
+/* ==========================================
+   CONCLUSIÓN TIMING
+   ========================================== */
+
+.comparador-conclusion {
+  margin-top: 14px;
+  background: #07111f;
+  border: 1px solid #31587b;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.comparador-conclusion small {
+  display: block;
+  color: #7f9bb7;
+  margin-bottom: 6px;
+}
+
+.comparador-conclusion strong {
+  display: block;
+  color: #79d8ff;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.comparador-conclusion span {
+  display: block;
+  color: #ffd37a;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+
+/* ==========================================
+   TABLAS
+   ========================================== */
+
+.tabla-wrap,
+.tabla-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 12px;
+  border: 1px solid #1f3348;
+  background: #07111f;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabla-estadisticas,
+.tabla-diagnostico {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.tabla-estadisticas thead,
+.tabla-diagnostico thead {
+  background: #0a1623;
+}
+
+.tabla-estadisticas th,
+.tabla-diagnostico th {
+  padding: 11px 9px;
+  text-align: left;
+  color: #9fb4c8;
+  font-size: 11px;
+  white-space: nowrap;
+  border-bottom: 1px solid #29435d;
+}
+
+.tabla-estadisticas td,
+.tabla-diagnostico td {
+  padding: 11px 9px;
+  border-bottom: 1px solid #16283a;
+  color: #dce8f5;
+  white-space: nowrap;
+}
+
+.tabla-estadisticas tbody tr:last-child td,
+.tabla-diagnostico tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-estadisticas td:nth-child(1),
+.tabla-diagnostico td:nth-child(1) {
+  font-weight: bold;
+  color: #79d8ff;
+}
+
+
+/* ==========================================
+   COLORES TABLA
+   ========================================== */
+
+.tabla-diagnostico td:nth-child(3) {
+  color: #79f3c2;
+}
+
+.tabla-diagnostico td:nth-child(4) {
+  color: #ff9fb4;
+}
+
+.tabla-diagnostico td:nth-child(5) {
+  color: #ffd37a;
+}
+
+.tabla-diagnostico td:nth-child(6) {
+  color: #79d8ff;
+}
+
+
+/* ==========================================
+   NUEVOS MERCADOS
+   ========================================== */
+
+#hz15Pruebas,
+#hz15Ganadas,
+#hz15Perdidas,
+#hz15Accuracy,
+#hz15Latencia,
+#hz30Pruebas,
+#hz30Ganadas,
+#hz30Perdidas,
+#hz30Accuracy,
+#hz30Latencia {
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   SCROLL TABLAS
+   ========================================== */
+
+.tabla-wrap::-webkit-scrollbar,
+.tabla-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tabla-wrap::-webkit-scrollbar-thumb,
+.tabla-scroll::-webkit-scrollbar-thumb {
+  background: #29435d;
+  border-radius: 999px;
+}
+
+.tabla-wrap::-webkit-scrollbar-track,
+.tabla-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+/* ==========================================
+   REGISTRO
+   ========================================== */
+
+.registro {
+  min-height: 160px;
+  max-height: 360px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #07111f;
+  border: 1px solid #16283a;
+  border-radius: 12px;
+  padding: 12px;
+  font-family: monospace;
+  font-size: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.registro p {
+  margin: 7px 0;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.registro::-webkit-scrollbar {
+  width: 6px;
+}
+
+.registro::-webkit-scrollbar-thumb {
+  background: #29435d;
+  border-radius: 999px;
+}
+
+
+/* ==========================================
+   PIE
+   ========================================== */
+
+footer {
+  text-align: center;
+  color: #6f879d;
+  padding: 12px 0 20px;
+}
+
+footer p {
+  margin: 4px 0;
+}
+
+footer small {
+  line-height: 1.5;
+}
+
+
+/* ==========================================
+   TELÉFONO
+   ========================================== */
+
+@media (max-width: 520px) {
+
+  .app {
+    padding: 12px;
+  }
+
+  .hero {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  .subtitulo {
+    font-size: 12px;
+  }
+
+  .estado-bot {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .datos-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .dato {
+    padding: 10px;
+  }
+
+  .dato small {
+    font-size: 10px;
+  }
+
+  .dato strong {
+    font-size: 14px;
+  }
+
+  .selector,
+  .selector-modo {
+    padding: 12px 9px;
+    font-size: 13px;
+  }
+
+  .campo input,
+  .campo select {
+    font-size: 13px;
+  }
+
+  .tarjeta {
+    padding: 14px;
+    border-radius: 15px;
+  }
+
+  .tarjeta h2 {
+    font-size: 16px;
+  }
+
+  .boton {
+    padding: 13px 9px;
+    font-size: 12px;
+  }
+
+  .ejecutar-manual {
+    min-height: 78px;
+    padding: 18px 12px;
+    font-size: 20px;
+    border-radius: 16px;
+  }
+
+  .estado-manual {
+    padding: 13px 10px;
+    font-size: 13px;
+  }
+
+  .comparador-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabla-estadisticas,
+  .tabla-diagnostico {
+    font-size: 11px;
+  }
+
+  .tabla-estadisticas th,
+  .tabla-estadisticas td,
+  .tabla-diagnostico th,
+  .tabla-diagnostico td {
+    padding: 9px 8px;
+  }
+
+}
+
+
+/* ==========================================
+   TELÉFONOS MUY ESTRECHOS
+   ========================================== */
+
+@media (max-width: 360px) {
+
+  .app {
+    padding: 9px;
+  }
+
+  .datos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .botones {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    flex-direction: column;
+  }
+
+  .estado-bot {
+    align-self: flex-start;
+  }
+
+  .ejecutar-manual {
+    min-height: 82px;
+    font-size: 19px;
+  }
+
+}
+
+
+/* ==========================================
+   REDUCIR EFECTOS DEL SISTEMA
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+}
+
+
+/* ==========================================
+   FIN BOT.CSS
+   FIX13.7 ESTABLE + RÁPIDA
+   ========================================== */
+
+
+/* ==========================================
+   FIX13.9 · CUENTA DEMO / REAL SEGURA
+   ========================================== */
+
+.cuenta-panel {
+  border-color: #31587b;
+}
+
+.cuenta-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.cuenta-tab {
+  min-height: 46px;
+  border: 1px solid #31587b;
+  border-radius: 12px;
+  background: #122235;
+  color: #dce8f5;
+  font-weight: 900;
+}
+
+.cuenta-tab.activa {
+  border-color: #43d9a3;
+  color: #79f3c2;
+}
+
+.cuenta-tab.bloqueada {
+  border-color: #713346;
+  color: #ff9fb4;
+  opacity: 0.7;
+}
+
+.cuenta-aviso {
+  margin-top: 14px;
+}
+
+#cuentaRealEstado {
+  color: #ff9fb4;
+}
+
+#cuentaModoActual {
+  color: #79f3c2;
+}
+
+/* Botón manual: estado listo = señal válida nueva. */
+.ejecutar-manual:not(:disabled) {
+  outline: 2px solid rgba(124, 242, 196, 0.18);
+}
