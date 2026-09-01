@@ -1,7 +1,9 @@
 /* ==========================================
-   BOT V1 MR
+   /* ===========================================
+   BOT_PRO_MR
    DERIV TRADE FIX6
    SOLO CUENTA DEMO
+
 
    FLUJO PRINCIPAL:
 
