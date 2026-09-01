@@ -1,72 +1,92 @@
 /**
  * BOT_PRO_MR
- * Módulo: signal-bridge.js (Sincronización de Alta Velocidad)
+ * Módulo: bot-engine.js (Motor Principal de Coordinación y Ejecución)
  */
 
-export class SignalBridge {
-    constructor(botEngine) {
-        this.botEngine = botEngine;
-        this.minConfidence = 72; // Umbral de confianza
-        this.isProcessing = false;
-        this.lastSignalTime = 0;
-        this.cooldownMs = 2000;  // Tiempo de espera entre disparos (2 segundos)
+import { derivTrade } from './deriv-trade.js';
+import { signalBridge } from './signal-bridge.js';
+
+export class BotEngine {
+    constructor(config = {}) {
+        this.ws = null;
+        this.tradeManager = null;
+        this.bridge = null;
+        this.symbol = config.symbol || '1HZ10V';
+        this.stake = config.stake || 1;
+        this.isReady = false;
     }
 
     /**
-     * Procesa la señal recibida desde TRADING-ANALYZER-MR
-     * @param {Object} signalData - { signal: 'CALL'|'PUT', confidence: number, reason: string }
+     * Inicializa las conexiones y los sub-módulos del bot
+     * @param {WebSocket} wsConnection - Instancia activa del WebSocket de Deriv
      */
-    async processSignal(signalData) {
-        const now = Date.now();
-
-        // 1. Filtrar señales neutrales
-        if (!signalData || signalData.signal === 'NEUTRAL') {
+    init(wsConnection) {
+        if (!wsConnection) {
+            console.error('[ENGINE] Error: Se requiere una conexión WebSocket válida.');
             return;
         }
 
-        // 2. Control de disparo (Evitar órdenes duplicadas)
-        if (this.isProcessing || (now - this.lastSignalTime) < this.cooldownMs) {
+        this.ws = wsConnection;
+        
+        // Instanciar Administrador de Operaciones y Puente de Señales
+        const TradeClass = derivTrade || window.DerivTradeManager;
+        const BridgeClass = signalBridge || window.SignalBridge;
+
+        if (TradeClass) {
+            this.tradeManager = new TradeClass(this.ws);
+        }
+
+        if (BridgeClass) {
+            this.bridge = new BridgeClass(this);
+        }
+
+        this.isReady = true;
+        console.log('[ENGINE] Motor de trading inicializado y listo.');
+    }
+
+    /**
+     * Pasa la orden de compra directamente al TradeManager reduciendo latencia
+     * @param {Object} params - { action: 'CALL'|'PUT', duration: number, duration_unit: string }
+     */
+    async executeTradeDirect(params) {
+        if (!this.tradeManager) {
+            console.error('[ENGINE] Error: TradeManager no está inicializado.');
             return;
         }
 
-        // 3. Validar umbral de confianza
-        if (signalData.confidence < this.minConfidence) {
-            console.log(`[BRIDGE] Señal ${signalData.signal} descartada por confianza insuficiente (${signalData.confidence}% < ${this.minConfidence}%)`);
-            return;
-        }
+        const tradeConfig = {
+            action: params.action,
+            symbol: params.symbol || this.symbol,
+            stake: params.stake || this.stake,
+            duration: params.duration || 5,
+            duration_unit: params.duration_unit || 't'
+        };
 
-        this.isProcessing = true;
-        this.lastSignalTime = now;
+        // Ejecución hacia la API de Deriv
+        await this.tradeManager.executeTradeDirect(tradeConfig);
+    }
 
-        try {
-            console.log(`[BRIDGE] 🔥 Señal de Alta Probabilidad Recibida: ${signalData.signal} (${signalData.confidence}%) - ${signalData.reason}`);
-            
-            if (this.botEngine && typeof this.botEngine.executeTradeDirect === 'function') {
-                await this.botEngine.executeTradeDirect({
-                    action: signalData.signal,
-                    confidence: signalData.confidence,
-                    duration: 5,
-                    duration_unit: 't'
-                });
-            } else {
-                console.warn('[BRIDGE] Motor de trading no disponible o sin método de ejecución directa.');
-            }
-        } catch (error) {
-            console.error('[BRIDGE] Error en ejecución de orden:', error);
-        } finally {
-            this.isProcessing = false;
+    /**
+     * Recibe señales desde la herramienta TRADING-ANALYZER-MR
+     * @param {Object} signalData
+     */
+    onSignalReceived(signalData) {
+        if (this.bridge) {
+            this.bridge.processSignal(signalData);
+        } else {
+            console.warn('[ENGINE] Puente de señales no disponible.');
         }
     }
 }
 
-// Alias de exportación para compatibilidad con bot.js
-export const signalBridge = SignalBridge;
+// Exportación como alias 'botEngine' para resolver la importación requerida por bot.js
+export const botEngine = BotEngine;
 
-// Soporte global para navegador y entornos CommonJS
+// Compatibilidad con entorno global de navegador y CommonJS
 if (typeof window !== 'undefined') {
-    window.SignalBridge = SignalBridge;
-    window.signalBridge = SignalBridge;
+    window.BotEngine = BotEngine;
+    window.botEngine = BotEngine;
 }
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { SignalBridge, signalBridge: SignalBridge };
+    module.exports = { BotEngine, botEngine: BotEngine };
 }
