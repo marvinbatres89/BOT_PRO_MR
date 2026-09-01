@@ -79,14 +79,14 @@ export class BotEngine {
     }
 }
 
-// Exportación como alias 'botEngine' para resolver la importación requerida por bot.js
-export const botEngine = BotEngine;
+// Instancia global exportada
+export const botEngine = new BotEngine();
 
-// Compatibilidad con entorno global de navegador y CommonJS
+// Exportaciones globales para navegador
 if (typeof window !== 'undefined') {
     window.BotEngine = BotEngine;
-    window.botEngine = BotEngine;
+    window.botEngine = botEngine;
 }
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { BotEngine, botEngine: BotEngine };
+    module.exports = { BotEngine, botEngine };
 }
