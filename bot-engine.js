@@ -1,92 +1,27 @@
 /**
  * BOT_PRO_MR
- * Módulo: bot-engine.js (Motor Principal de Coordinación y Ejecución)
+ * Módulo: bot.js (Punto de Entrada Principal)
  */
 
-import { derivTrade } from './deriv-trade.js';
-import { signalBridge } from './signal-bridge.js';
+import { derivTrade } from './deriv-trade.js?v=FIX15-0-DIRECT-TRADE';
+import { SignalBridge, signalBridge } from './signal-bridge.js?v=FIX15-0-DIRECT-TRADE';
+import { botEngine, BotEngine } from './bot-engine.js?v=FIX15-0-DIRECT-TRADE';
 
-export class BotEngine {
-    constructor(config = {}) {
-        this.ws = null;
-        this.tradeManager = null;
-        this.bridge = null;
-        this.symbol = config.symbol || '1HZ10V';
-        this.stake = config.stake || 1;
-        this.isReady = false;
-    }
+// Asegurar instancia activa del motor
+const activeEngine = botEngine || (BotEngine ? new BotEngine() : null);
 
-    /**
-     * Inicializa las conexiones y los sub-módulos del bot
-     * @param {WebSocket} wsConnection - Instancia activa del WebSocket de Deriv
-     */
-    init(wsConnection) {
-        if (!wsConnection) {
-            console.error('[ENGINE] Error: Se requiere una conexión WebSocket válida.');
-            return;
-        }
-
-        this.ws = wsConnection;
-        
-        // Instanciar Administrador de Operaciones y Puente de Señales
-        const TradeClass = derivTrade || window.DerivTradeManager;
-        const BridgeClass = signalBridge || window.SignalBridge;
-
-        if (TradeClass) {
-            this.tradeManager = new TradeClass(this.ws);
-        }
-
-        if (BridgeClass) {
-            this.bridge = new BridgeClass(this);
-        }
-
-        this.isReady = true;
-        console.log('[ENGINE] Motor de trading inicializado y listo.');
-    }
-
-    /**
-     * Pasa la orden de compra directamente al TradeManager reduciendo latencia
-     * @param {Object} params - { action: 'CALL'|'PUT', duration: number, duration_unit: string }
-     */
-    async executeTradeDirect(params) {
-        if (!this.tradeManager) {
-            console.error('[ENGINE] Error: TradeManager no está inicializado.');
-            return;
-        }
-
-        const tradeConfig = {
-            action: params.action,
-            symbol: params.symbol || this.symbol,
-            stake: params.stake || this.stake,
-            duration: params.duration || 5,
-            duration_unit: params.duration_unit || 't'
-        };
-
-        // Ejecución hacia la API de Deriv
-        await this.tradeManager.executeTradeDirect(tradeConfig);
-    }
-
-    /**
-     * Recibe señales desde la herramienta TRADING-ANALYZER-MR
-     * @param {Object} signalData
-     */
-    onSignalReceived(signalData) {
-        if (this.bridge) {
-            this.bridge.processSignal(signalData);
-        } else {
-            console.warn('[ENGINE] Puente de señales no disponible.');
-        }
-    }
-}
-
-// Instancia global exportada
-export const botEngine = new BotEngine();
-
-// Exportaciones globales para navegador
+// Escuchador global para conectar la interfaz con el motor
 if (typeof window !== 'undefined') {
-    window.BotEngine = BotEngine;
-    window.botEngine = botEngine;
+    window.botEngine = activeEngine;
+    
+    // Función de recepción de señales desde TRADING-ANALYZER-MR
+    window.receiveAnalyzerSignal = function(signalData) {
+        if (activeEngine && typeof activeEngine.onSignalReceived === 'function') {
+            activeEngine.onSignalReceived(signalData);
+        } else {
+            console.warn('[BOT] El motor no está listo para recibir señales.');
+        }
+    };
 }
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { BotEngine, botEngine };
-}
+
+console.log('[BOT] Módulo principal cargado e integrado correctamente.');
