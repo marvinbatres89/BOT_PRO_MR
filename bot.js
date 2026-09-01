@@ -34,17 +34,16 @@
 
 import {
   signalBridge
-} from "./signal-bridge.js?v=FIX14-0-DIRECTION-MEMORY";
+} from "./signal-bridge.js?v=FIX19";
 
-
-import {
-  botEngine
-} from "./bot-engine.js?v=FIX14-2-RISK-GUARD";
-
+import botEngine, { 
+  BotEngine 
+} from "./bot-engine.js?v=FIX19";
 
 import {
   derivConnection
-} from "./deriv-connection.js";
+} from "./deriv-connection.js?v=FIX19";
+
 
 
 /* ==========================================
