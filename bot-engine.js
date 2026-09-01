@@ -14393,16 +14393,15 @@ class BotEngine {
 
 }
 
-
 /* ==========================================
-   INSTANCIA ÚNICA
-   ========================================== */
+   INSTANCIA UNICA Y EXPORTACIONES
+   =========================================== */
 
-export const botEngine =
-  new BotEngine();
+export const botEngine = new BotEngine();
 
+export { BotEngine };
+export default botEngine;
 
-/* ==========================================
+/* ===========================================
    FIN BOT-ENGINE.JS
-   FIX14.8 FAVORABLE PRIORITY GATE + LOSS PROTECTION
-   ========================================== */
+   =========================================== */
