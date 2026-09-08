@@ -26,7 +26,7 @@
 
 import {
   derivConnection
-} from "./deriv-connection.js";
+} from "./deriv-connection.js?v=FIX19";
 
 
 class DerivTrade {
